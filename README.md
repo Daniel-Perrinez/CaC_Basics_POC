@@ -7,7 +7,16 @@ Configuration as Code basics for presentations and POCs
 https://developer.hashicorp.com/terraform/language/style
 Before committing your code to version control.
 ```
-terraform fmt 
-terraform validate 
+export AWS_ACCESS_KEY_ID="your_access_key"
+export AWS_SECRET_ACCESS_KEY="your_secret_key"
+
+cd CaC_Basics_POC/Cloud/AWS_TF
+
+terraform fmt
+terraform validate
 tflint
+
+terraform init
+terraform plan
+terraform apply
 ```

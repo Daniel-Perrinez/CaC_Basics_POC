@@ -26,15 +26,15 @@ variable "common_tags" {
   description = "Common tags to be applied to all resources"
   type        = map(string)
   default = {
-    "Managed-by" = "Terraform"
-    "Project"    = "Infrastructure"
+    "Company" = "WEI"
+    "Team"    = "WEI_DevOps"
   }
 }
 
 variable "additional_tags" {
   description = "Additional tags to be merged with common tags"
   type        = map(string)
-  default     = {}
+  default     = { "IaC_Files" = "CaC_Basics_POC/Cloud/AWS_TF" } #TODO: would like to make this a dynamic value based on the file which defines the resource.
 }
 
 locals {
