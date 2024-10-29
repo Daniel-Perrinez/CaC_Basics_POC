@@ -31,16 +31,18 @@ variable "common_tags" {
   }
 }
 
-variable "additional_tags" {
+variable "resource_specific_tags" {
   description = "Additional tags to be merged with common tags"
   type        = map(string)
-  default     = { "IaC_Files" = "CaC_Basics_POC/Cloud/AWS_TF" } #TODO: would like to make this a dynamic value based on the file which defines the resource.
+  default = {
+    "IaC_Files" = "CaC_Basics_POC/Cloud/AWS_TF" #TODO: would like to make this a dynamic value based on the file which defines the resource.
+  }
 }
 
 locals {
   tags = merge(
     var.common_tags,
-    var.additional_tags,
+    var.resource_specific_tags,
     {
       Environment = var.environment
       Project     = var.project

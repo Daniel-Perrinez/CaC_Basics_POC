@@ -1,8 +1,10 @@
 # Create a VPC
 resource "aws_vpc" "main" {
-  cidr_block = "10.0.0.0/16"
 
-  tags = local.tags
+  cidr_block = "10.0.0.0/16"
+  tags = merge(local.tags,
+    { Name = "main-vpc" }
+  )
 }
 
 # Create a subnet
@@ -10,7 +12,9 @@ resource "aws_subnet" "main" {
   vpc_id     = aws_vpc.main.id
   cidr_block = "10.0.1.0/24"
 
-  tags = local.tags
+  tags = merge(local.tags,
+    { Name = "main-subnet" }
+  )
 }
 
 # Create a security group
@@ -34,5 +38,7 @@ resource "aws_security_group" "allow_ssh" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags = local.tags
+  tags = merge(local.tags,
+    { Name = "main-sg" }
+  )
 }
