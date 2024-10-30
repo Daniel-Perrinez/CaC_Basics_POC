@@ -4,11 +4,43 @@ variable "region" {
   default     = "us-east-1"
 }
 
-variable "environment" {
-  description = "Environment name"
-  type        = string
-  default     = "development"
+# variable "environment" {
+#   description = "Environment name"
+#   type        = string
+#   default     = "development"
+# }
+
+variable "environment_configurations" {
+  type = map(object({
+    instance_type = string
+    ami           = string
+    tags          = map(string)
+  }))
+  default = {
+    dev = {
+      instance_type = "t2.micro"
+      ami           = "ami-06b21ccaeff8cd686"
+      tags = {
+        Environment = "Development"
+      }
+    }
+    test = {
+      instance_type = "t2.micro"
+      ami           = "ami-06b21ccaeff8cd686"
+      tags = {
+        Environment = "Testing"
+      }
+    }
+    prod = {
+      instance_type = "t2.micro"
+      ami           = "ami-06b21ccaeff8cd686"
+      tags = {
+        Environment = "Production"
+      }
+    }
+  }
 }
+
 
 variable "project" {
   description = "Project name"
@@ -44,7 +76,7 @@ locals {
     var.common_tags,
     var.resource_specific_tags,
     {
-      Environment = var.environment
+      Environment = "development"
       Project     = var.project
       Owner       = var.owner
     }
