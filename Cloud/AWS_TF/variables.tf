@@ -4,36 +4,44 @@ variable "region" {
   default     = "us-east-1"
 }
 
-# variable "environment" {
-#   description = "Environment name"
-#   type        = string
-#   default     = "development"
-# }
 
+# No variables allowed for (subnet_id, ami, vpc_security_group_ids)
 variable "environment_configurations" {
   type = map(object({
-    instance_type = string
-    ami           = string
-    tags          = map(string)
+    instance_type          = string
+    ami                    = string
+    subnet_id              = string
+    vpc_security_group_ids = list(string)
+    count                  = number
+    tags                   = map(string)
   }))
   default = {
     dev = {
-      instance_type = "t2.micro"
-      ami           = "ami-06b21ccaeff8cd686"
+      instance_type          = "t2.micro"
+      ami                    = "ami-06b21ccaeff8cd686"
+      subnet_id              = "subnet-0364889d16613f3eb"
+      vpc_security_group_ids = ["sg-0c4d97543f7a0d47d"]
+      count                  = 3
       tags = {
         Environment = "Development"
       }
     }
     test = {
-      instance_type = "t2.micro"
-      ami           = "ami-06b21ccaeff8cd686"
+      instance_type          = "t2.nano"
+      ami                    = "ami-06b21ccaeff8cd686"
+      subnet_id              = "subnet-0364889d16613f3eb"
+      vpc_security_group_ids = ["sg-0c4d97543f7a0d47d"]
+      count                  = 3
       tags = {
         Environment = "Testing"
       }
     }
     prod = {
-      instance_type = "t2.micro"
-      ami           = "ami-06b21ccaeff8cd686"
+      instance_type          = "t2.small"
+      ami                    = "ami-06b21ccaeff8cd686"
+      subnet_id              = "subnet-0364889d16613f3eb"
+      vpc_security_group_ids = ["sg-0c4d97543f7a0d47d"]
+      count                  = 3
       tags = {
         Environment = "Production"
       }
